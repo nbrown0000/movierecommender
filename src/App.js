@@ -19,7 +19,7 @@ class App extends React.Component {
 
   onClickSearch = () => {
     /* Using The Movie Database (TMDb) API */
-    const searchTerm = "Jack+Reacher"
+    const searchTerm = this.state.input.split(' ').join('+');
     const apiKey = '88154b15622c6fea76bf9fcec6858911'
     const fetchString = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`;
     fetch(fetchString)
@@ -32,7 +32,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <h1>Enter a movie to search</h1>
+        <h1>Movie Recommender</h1>
         <SearchBox onClickSearch={this.onClickSearch}  onInputChange={this.onInputChange} />
         <CardContainer moviesList={this.state.searchResult} />
       </div>
