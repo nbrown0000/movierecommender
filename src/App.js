@@ -1,26 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
+import SearchBox from './components/SearchBox/SearchBox';
+import CardContainer from './components/CardContainer/CardContainer';
 import './App.css';
+import 'tachyons';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      input: '',
+      searchResult: []
+    }
+  }
+
+  onInputChange = (event) => {
+    this.setState({ input: event.target.value })
+  }
+
+  onClickSearch = () => {
+    /* Using The Movie Database (TMDb) API */
+    const searchTerm = "Jack+Reacher"
+    const apiKey = '88154b15622c6fea76bf9fcec6858911'
+    const fetchString = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`;
+    fetch(fetchString)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ searchResult: data.results });
+      });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Enter a movie to search</h1>
+        <SearchBox onClickSearch={this.onClickSearch}  onInputChange={this.onInputChange} />
+        <CardContainer moviesList={this.state.searchResult} />
+      </div>
+    );
+  }
 }
 
 export default App;
