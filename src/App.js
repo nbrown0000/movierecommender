@@ -3,6 +3,8 @@ import SearchBox from './components/SearchBox/SearchBox';
 import CardContainer from './components/CardContainer/CardContainer';
 import './App.css';
 import 'tachyons';
+import apiConfig from './apiKeys';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -18,9 +20,10 @@ class App extends React.Component {
   }
 
   onClickSearch = () => {
+
     /* Using The Movie Database (TMDb) API */
     const searchTerm = this.state.input.split(' ').join('+');
-    const apiKey = '88154b15622c6fea76bf9fcec6858911'
+    const apiKey = apiConfig.TMDB_API_KEY;
     const fetchString = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`;
     fetch(fetchString)
       .then(response => response.json())
