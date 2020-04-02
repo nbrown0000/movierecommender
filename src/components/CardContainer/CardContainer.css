@@ -1,0 +1,13 @@
+.scrollmenu {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.scrollmenu > * {
+  flex: 0 0 auto;
+  width: 150px;
+  height: 225px;
+  background: linear-gradient(to bottom right,#FFDC00,#DDDDDD,#39CCCC);
+}

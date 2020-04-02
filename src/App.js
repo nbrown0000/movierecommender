@@ -29,6 +29,7 @@ class App extends React.Component {
       .then(response => response.json())
       .then(data => {
         this.setState({ searchResult: data.results });
+        // console.log(data.results)
       });
   }
 
@@ -37,7 +38,7 @@ class App extends React.Component {
       <div className="App">
         <h1>Movie Recommender</h1>
         <SearchBox onClickSearch={this.onClickSearch}  onInputChange={this.onInputChange} />
-        <CardContainer moviesList={this.state.searchResult} />
+        <CardContainer className='scrollmenu' moviesList={this.state.searchResult} />
       </div>
     );
   }
