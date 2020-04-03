@@ -1,32 +1,34 @@
 import React from 'react';
 import './Card.css';
 
-class Card extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      poster: `http://image.tmdb.org/t/p/w200/${this.props.movie.poster_path}`,
-      title: this.props.movie.original_title
-    }
+const Card = ({ movie, setSelectedCard, selectedCard }) => {
+  
+  let style = {};
+  if(selectedCard.id === movie.id) {
+    style = { border: '3px solid red' }
+  } else {
+    style = { border: '3px solid white' }
   }
 
-  componentDidMount() {
-    console.log(this.props.movie.poster_path)
-  }
-
-  render() {
-    const { poster, title } = this.state;
-    return (
-      <div className='card mr2'>
-        {
-          this.props.movie.poster_path === null ?
-            <p className='relative ws-normal pa2'>{title}</p>
-          :
-            <img src={poster} alt='' width='auto' height='225px' />
-        }
-      </div>
-    )
-  }
+  return (
+    <div
+      className='card'
+      style={style}
+      onClick={() => setSelectedCard(movie)}
+    >
+      {
+        movie.poster_path === null ?
+          <p className='relative ws-normal pa2'>{movie.original_title}</p>
+        :
+          <img
+            src={`http://image.tmdb.org/t/p/w200/${movie.poster_path}`}
+            alt=''
+            width='100%'
+            height='100%'
+          />
+      }
+    </div>
+  )
 }
 
 export default Card;
