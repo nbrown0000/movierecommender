@@ -3,7 +3,7 @@ import './CardContainer.css';
 
 const CardContainer = ({ moviesList }) => {
   return (
-    <div className='pl3 pr3'>
+    <div className='ml3 mr3'>
       <div className='scrollmenu'>
         { moviesList }
       </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBox from './components/SearchBox/SearchBox';
 import CardContainer from './components/CardContainer/CardContainer';
 import Card from './components/Card/Card';
+import SelectedCardPanel from './components/SelectedCardPanel/SelectedCardPanel';
 import './App.css';
 import 'tachyons';
 import apiConfig from './apiKeys';
@@ -12,9 +13,23 @@ class App extends React.Component {
     super(props)
     this.state = {
       input: '',
+      genreList: [],
       moviesList: [],
       selectedCard: ''
     }
+  }
+
+  componentDidMount() {
+    /*
+     * Fetch genre list from TMDB API.
+     * The object returned contains
+     * an object genres that contains
+     * an array of objects { id, genre }
+     */
+    const apiKey = apiConfig.TMDB_API_KEY;
+    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`)
+    .then(response => response.json())
+    .then(data => this.setState({ genreList: data.genres }));
   }
 
   onInputChange = (event) => {
@@ -32,21 +47,20 @@ class App extends React.Component {
     fetch(fetchString)
       .then(response => response.json())
       .then(data => {
-        this.setState({ moviesList: data.results }, function() {
-          this.setBordersWhite();
-        });
         
         if(data.results.length === 0) {
+          this.setState({ moviesList: [] });
           alert("No movies found by that name")
+        } else {
+          this.setState({ moviesList: data.results });
         }
-        // console.log(data.results)
+        console.log(data.results)
       });
 
     /*
-     * TODO: Expand to gather list from all pages of TMDB query result
-     *
-     * 
-     * 
+     * TODO: Expand search to include
+     * __ALL PAGES__ TMDB query
+     * ( currently only servicing 1st page )
      */
 
   }
@@ -56,28 +70,27 @@ class App extends React.Component {
   }
 
   render() {
-    // console.log(this.state.moviesList)
+    const { moviesList, selectedCard } = this.state;
     return (
       <div className="App">
-        <h1>Movie Recommender</h1>
+        <h1 style={{fontFamily: 'Roboto'}}>Movie Recommender</h1>
         <SearchBox onClickSearch={this.onClickSearch}  onInputChange={this.onInputChange} />
         <CardContainer
           className='scrollmenu'
-          moviesList={this.state.moviesList.map((movie,i) => {
+          moviesList={moviesList.map((movie,i) => {
             return <Card
               movie={movie}
               key={i}
               setSelectedCard={this.setSelectedCard}
-              selectedCard={this.state.selectedCard}
+              selectedCard={selectedCard}
             />
           })}
           resetAllCardBorders={this.resetAllCardBorders}
         />
-        {
-          this.state.selectedCard !== '' ?
-          this.state.selectedCard.original_title :
-          <></>
-        }
+        <SelectedCardPanel
+          selectedCard={selectedCard}
+          genreList={this.state.genreList}
+        />
       </div>
     );
   }

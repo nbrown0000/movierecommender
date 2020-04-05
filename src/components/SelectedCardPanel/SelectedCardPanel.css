@@ -1,0 +1,8 @@
+.recommend-button {
+  float: right;
+  background-color: #555555;
+  color: #F4F4F4;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
