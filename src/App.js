@@ -15,7 +15,8 @@ class App extends React.Component {
       input: '',
       genreList: [],
       moviesList: [],
-      selectedCard: ''
+      selectedCard: '',
+      testArray: []
     }
   }
 
@@ -40,28 +41,28 @@ class App extends React.Component {
     if(this.state.input === '') return alert("Seach must include a name");
     this.setState({ moviesList: [] });
 
-    /* Using The Movie Database (TMDb) API */
-    const searchTerm = this.state.input.split(' ').join('+');
     const apiKey = apiConfig.TMDB_API_KEY;
+    const searchTerm = this.state.input.split(' ').join('+');
     const fetchString = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`;
     fetch(fetchString)
       .then(response => response.json())
       .then(data => {
-        
-        if(data.results.length === 0) {
-          this.setState({ moviesList: [] });
-          alert("No movies found by that name")
-        } else {
-          this.setState({ moviesList: data.results });
+        this.setState(prevState => ({
+          moviesList: prevState.moviesList.concat(data.results)
+        }))
+        if (data.total_pages > 1) {
+          for (let i=2; i<=data.total_pages; i++) {
+            fetch(`${fetchString}&page=${i}`)
+              .then(response => response.json())
+              .then(data => {
+                this.setState(prevState => ({
+                  moviesList: prevState.moviesList.concat(data.results)
+                }))
+              })
+          }
         }
-        console.log(data.results)
-      });
-
-    /*
-     * TODO: Expand search to include
-     * __ALL PAGES__ TMDB query
-     * ( currently only servicing 1st page )
-     */
+        
+      })
 
   }
 
