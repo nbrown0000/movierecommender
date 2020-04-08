@@ -15,7 +15,9 @@ const CardContainer = ({ moviesList }) => {
               <p className='i fw7 pa0 ma0'>We found {moviesList.length} movies with that name.</p>
             </div>
             <div className='scrollmenu'>
-              { moviesList }
+              {
+                moviesList
+              }
             </div>
           </React.Fragment>
       }

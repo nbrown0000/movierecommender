@@ -72,13 +72,15 @@ class App extends React.Component {
 
   render() {
     const { moviesList, selectedCard } = this.state;
+    const sortedMoviesList = moviesList.sort((a, b) => (a.release_date < b.release_date) ? 1 : -1)
+    
     return (
       <div className="App">
         <h1 style={{fontFamily: 'Roboto'}} className='mb3'>Movie Recommender</h1>
         <SearchBox onClickSearch={this.onClickSearch}  onInputChange={this.onInputChange} />
         <CardContainer
           className='scrollmenu'
-          moviesList={moviesList.map((movie,i) => {
+          moviesList={sortedMoviesList.map((movie,i) => {
             return <Card
               movie={movie}
               key={i}
