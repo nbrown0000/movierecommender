@@ -29,14 +29,17 @@ class SelectedCardPanel extends React.Component {
           ?
             <div className='mid-gray'>
               <div className='pa2'>
-                <h2>{original_title}</h2>
+                <div className='flex flex-row justify-between ma0 pa0 items-center'>
+                <h2 className='ma0 pa0'>{original_title}</h2>
+                  <button className='ml1 pointer f5 no-underline br-pill ph4 pv2 white bg-black'>
+                    Recommend Similar Movies
+                  </button>
+                
+                </div>
                 <p>{release_date}</p>
                 <p>{this.genreIdToName(genre_ids)}</p>
                 <p>{overview}</p>
               </div>
-              <button className='pointer f5 grow no-underline br-pill ph3 pv2 dib white bg-black'>
-                  Recommend Similar Movies
-              </button>
             </div>
           :
             <React.Fragment></React.Fragment>

@@ -74,7 +74,7 @@ class App extends React.Component {
     const { moviesList, selectedCard } = this.state;
     return (
       <div className="App">
-        <h1 style={{fontFamily: 'Roboto'}}>Movie Recommender</h1>
+        <h1 style={{fontFamily: 'Roboto'}} className='mb3'>Movie Recommender</h1>
         <SearchBox onClickSearch={this.onClickSearch}  onInputChange={this.onInputChange} />
         <CardContainer
           className='scrollmenu'
