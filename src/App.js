@@ -76,11 +76,9 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.moviesList)
-
     const { moviesList, selectedMovie } = this.state;
-    const sortedMoviesList = moviesList.sort((a, b) => (a.popularity < b.popularity) ? 1 : -1)
-    // const sortedMoviesList = moviesList.sort((a, b) => (a.release_date < b.release_date) ? 1 : -1)
+    const sort_param = 'popularity'
+    const sortedMoviesList = moviesList.sort((a, b) => (a[sort_param] < b[sort_param]) ? 1 : -1)
     
     return (
       <div className="App">
