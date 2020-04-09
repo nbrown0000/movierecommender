@@ -1,10 +1,10 @@
 import React from 'react';
 import './Card.css';
 
-const Card = ({ movie, setSelectedCard, selectedCard }) => {
+const Card = ({ movie, setSelectedMovie, selectedMovie }) => {
   
   let style = {};
-  if(selectedCard.id === movie.id) {
+  if(selectedMovie.id === movie.id) {
     style = { border: '3px solid #333333' }
   } else {
     style = { border: '3px solid white' }
@@ -14,7 +14,7 @@ const Card = ({ movie, setSelectedCard, selectedCard }) => {
     <div
       className='card'
       style={style}
-      onClick={() => setSelectedCard(movie)}
+      onClick={() => setSelectedMovie(movie)}
     >
       {
         movie.poster_path === null ?

@@ -20,18 +20,21 @@ class SelectedCardPanel extends React.Component {
 
   
   render() {
-    const { original_title, release_date, overview, genre_ids } = this.props.selectedCard;
+    const { original_title, release_date, overview, genre_ids } = this.props.selectedMovie;
 
     return (
       <div className='tl ma3' >
         {
-          this.props.selectedCard !== ''
+          this.props.selectedMovie !== ''
           ?
             <div className='mid-gray'>
               <div className='pa2'>
                 <div className='flex flex-row justify-between ma0 pa0 items-center'>
                 <h2 className='ma0 pa0'>{original_title}</h2>
-                  <button className='ml1 pointer f5 no-underline br-pill ph4 pv2 white bg-black'>
+                  <button
+                    className='ml1 pointer f5 no-underline br-pill ph4 pv2 white bg-black'
+                    onClick={this.props.getSimilarMovies}
+                  >
                     Recommend Similar Movies
                   </button>
                 

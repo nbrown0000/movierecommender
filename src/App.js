@@ -15,7 +15,7 @@ class App extends React.Component {
       input: '',
       genreList: [],
       moviesList: [],
-      selectedCard: '',
+      selectedMovie: '',
       testArray: []
     }
   }
@@ -66,13 +66,21 @@ class App extends React.Component {
 
   }
 
-  setSelectedCard = (event) => {
-    this.setState({ selectedCard: event })
+  setSelectedMovie = (movie) => {
+    this.setState({ selectedMovie: movie })
+  }
+
+  getSimilarMovies = () => {
+    console.log(this.state.selectedMovie)
+
   }
 
   render() {
-    const { moviesList, selectedCard } = this.state;
-    const sortedMoviesList = moviesList.sort((a, b) => (a.release_date < b.release_date) ? 1 : -1)
+    console.log(this.state.moviesList)
+
+    const { moviesList, selectedMovie } = this.state;
+    const sortedMoviesList = moviesList.sort((a, b) => (a.popularity < b.popularity) ? 1 : -1)
+    // const sortedMoviesList = moviesList.sort((a, b) => (a.release_date < b.release_date) ? 1 : -1)
     
     return (
       <div className="App">
@@ -84,15 +92,16 @@ class App extends React.Component {
             return <Card
               movie={movie}
               key={i}
-              setSelectedCard={this.setSelectedCard}
-              selectedCard={selectedCard}
+              setSelectedMovie={this.setSelectedMovie}
+              selectedMovie={selectedMovie}
             />
           })}
           resetAllCardBorders={this.resetAllCardBorders}
         />
         <SelectedCardPanel
-          selectedCard={selectedCard}
+          selectedMovie={selectedMovie}
           genreList={this.state.genreList}
+          getSimilarMovies={this.getSimilarMovies}
         />
       </div>
     );
