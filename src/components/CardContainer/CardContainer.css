@@ -12,3 +12,17 @@
   background-color: #CCCCCC;
   /* background: linear-gradient(to bottom right,#FFDC00,#DDDDDD,#39CCCC); */
 }
+
+.noscrollmenu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.noscrollmenu > * {
+  flex: 0 0 auto;
+  width: 150px;
+  height: 225px;
+  background-color: #CCCCCC;
+}

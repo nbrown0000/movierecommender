@@ -33,7 +33,7 @@ class SelectedCardPanel extends React.Component {
                 <h2 className='ma0 pa0'>{original_title}</h2>
                   <button
                     className='ml1 pointer f5 no-underline br-pill ph4 pv2 white bg-black'
-                    onClick={this.props.getSimilarMovies}
+                    onClick={this.props.getRecommendedMovies}
                   >
                     Recommend Similar Movies
                   </button>

@@ -1,13 +1,7 @@
 import React from 'react';
-import './CardContainer.css';
 import Card from '../Card/Card';
 
-const CardContainer = ({ moviesList, selectedMovie, setSelectedMovie, route }) => {
-
-  let containerClass = ''
-  if(route === 'search') { containerClass='scrollmenu' }
-  else { containerClass='noscrollmenu' }
-
+const RecommendedMoviesContainer = ({ moviesList, selectedMovie, setSelectedMovie }) => {
   return (
     <div className='mt4'>
       {
@@ -18,15 +12,9 @@ const CardContainer = ({ moviesList, selectedMovie, setSelectedMovie, route }) =
           
           <React.Fragment>
             <div className='f5 dib pa3 mid-gray'>
-              {
-                route === 'search'
-                ?
-                  <p className='i fw7 pa0 ma0'>We found {moviesList.length} movies with that name.</p>
-                :
-                  <p className='i fw7 pa0 ma0'>We recommend the following {moviesList.length} movies.</p>
-              }
+              <p className='i fw7 pa0 ma0'>We found {moviesList.length} movies with that name.</p>
             </div>
-            <div className={containerClass}>
+            <div className='scrollmenu'>
               {
                 moviesList.map((movie,i) => {
                   return <Card
@@ -45,4 +33,4 @@ const CardContainer = ({ moviesList, selectedMovie, setSelectedMovie, route }) =
   )
 }
 
-export default CardContainer;
+export default RecommendedMoviesContainer;
