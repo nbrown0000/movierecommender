@@ -2,7 +2,6 @@ import React from 'react';
 import SearchBox from './components/SearchBox/SearchBox';
 import CardContainer from './components/CardContainer/CardContainer';
 import SelectedCardPanel from './components/SelectedCardPanel/SelectedCardPanel';
-import Card from './components/Card/Card';
 import './App.css';
 import 'tachyons';
 import apiConfig from './apiKeys';
@@ -41,13 +40,17 @@ class App extends React.Component {
   }
 
   onClickSearch = () => {
+    /* Check input is valid */
     if(this.state.input === '') return alert("Seach must include a name");
+
+    /* Clear lists */
     this.setState({
       moviesList: [],
       selectedMovie: '',
       getRecommendedMovies: []
     });
 
+    /* Retrieve movie data */
     const apiKey = apiConfig.TMDB_API_KEY;
     const searchTerm = this.state.input.split(' ').join('+');
     const fetchString = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`;
@@ -78,8 +81,8 @@ class App extends React.Component {
   }
 
   getRecommendedMovies = () => {
-    const apiKey = apiConfig.TMDB_API_KEY;
     /* Algorithm for finding similar movies */
+    const apiKey = apiConfig.TMDB_API_KEY;
     const genresToSearch = this.state.selectedMovie.genre_ids
     let fetchString = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=`;
     genresToSearch.forEach(item => { fetchString=fetchString+item+',' });
@@ -93,10 +96,18 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.recommendedMovies)
-    const { moviesList, selectedMovie } = this.state;
-    const sort_param = 'popularity'
-    const sortedMoviesList = moviesList.sort((a, b) => (a[sort_param] < b[sort_param]) ? 1 : -1)
+    const {
+      moviesList,selectedMovie, route,
+      genreList, recommendedMovies
+    } = this.state;
+
+    const sort_param = 'popularity';
+    const sortedMoviesList = moviesList.sort((a, b) => {
+      return (a[sort_param] < b[sort_param]) ? 1 : -1
+    });
+    const sortedRecommendMoviesList = recommendedMovies.sort((a, b) => {
+      return (a[sort_param] < b[sort_param]) ? 1 : -1
+    });
     
     return (
       <div className="App">
@@ -105,16 +116,19 @@ class App extends React.Component {
           this.state.route === 'search'
           ?
             <React.Fragment>
-              <SearchBox onClickSearch={this.onClickSearch}  onInputChange={this.onInputChange} />
+              <SearchBox
+                onClickSearch={this.onClickSearch}
+                onInputChange={this.onInputChange}
+              />
               <CardContainer
                 moviesList={sortedMoviesList}
-                selectedMovie={this.state.selectedMovie}
+                selectedMovie={selectedMovie}
                 setSelectedMovie={this.setSelectedMovie}
-                route={this.state.route}
+                route={route}
               />
               <SelectedCardPanel
                 selectedMovie={selectedMovie}
-                genreList={this.state.genreList}
+                genreList={genreList}
                 getRecommendedMovies={this.getRecommendedMovies}
               />
             </React.Fragment>
@@ -123,16 +137,14 @@ class App extends React.Component {
             ?
               <React.Fragment>
                 <CardContainer
-                  moviesList={this.state.recommendedMovies}
-                  selectedMovie={this.state.selectedMovie}
+                  moviesList={sortedRecommendMoviesList}
+                  selectedMovie={selectedMovie}
                   setSelectedMovie={this.setSelectedMovie}
-                  route={this.state.route}
+                  route={route}
                 />
               </React.Fragment>
             :
-              <React.Fragment>
-                {/* INTENTIONALLY BLANK */}
-              </React.Fragment>
+              <React.Fragment>{/* INTENTIONALLY BLANK */}</React.Fragment>
         }
         
       </div>
