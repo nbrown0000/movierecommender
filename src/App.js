@@ -95,6 +95,17 @@ class App extends React.Component {
       }))
   }
 
+  onClickStartAgain = () => {
+    this.setState({
+      input: '',
+      genreList: [],
+      moviesList: [],
+      selectedMovie: '',
+      recommendedMovies: [],
+      route: 'search'
+    })
+  }
+
   render() {
     const {
       moviesList,selectedMovie, route,
@@ -125,6 +136,7 @@ class App extends React.Component {
                 selectedMovie={selectedMovie}
                 setSelectedMovie={this.setSelectedMovie}
                 route={route}
+                onClickStartAgain={this.onClickStartAgain}
               />
               <SelectedCardPanel
                 selectedMovie={selectedMovie}
@@ -141,6 +153,7 @@ class App extends React.Component {
                   selectedMovie={selectedMovie}
                   setSelectedMovie={this.setSelectedMovie}
                   route={route}
+                  onClickStartAgain={this.onClickStartAgain}
                 />
               </React.Fragment>
             :
