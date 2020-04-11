@@ -89,10 +89,24 @@ class App extends React.Component {
     fetchString=fetchString.slice(0, -1)
     fetch(fetchString)
       .then(response => response.json())
-      .then(data => this.setState({
-        recommendedMovies: data.results,
-        route: 'result'
-      }))
+      .then(data => {
+        this.setState(prevState => ({
+          recommendedMovies: prevState.recommendedMovies.concat(data.results)
+        }))
+        if (data.total_pages > 1) {
+          for (let i=2; i<=data.total_pages; i++) {
+            fetch(`${fetchString}&page=${i}`)
+              .then(response => response.json())
+              .then(data => {
+                this.setState(prevState => ({
+                  recommendedMovies: prevState.recommendedMovies.concat(data.results)
+                }))
+              })
+          }
+        }
+        this.setState({ route: 'result' })
+        
+      })
   }
 
   onClickStartAgain = () => {
@@ -113,12 +127,13 @@ class App extends React.Component {
     } = this.state;
 
     const sort_param = 'popularity';
+
     const sortedMoviesList = moviesList.sort((a, b) => {
       return (a[sort_param] < b[sort_param]) ? 1 : -1
     });
     const sortedRecommendMoviesList = recommendedMovies.sort((a, b) => {
       return (a[sort_param] < b[sort_param]) ? 1 : -1
-    });
+    }).slice(0,30);
     
     return (
       <div className="App">

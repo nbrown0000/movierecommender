@@ -24,7 +24,7 @@ const CardContainer = ({ moviesList, selectedMovie, setSelectedMovie, route, onC
                   <p className='i fw7 pa0 ma0'>We found {moviesList.length} movies with that name.</p>
                 :
                   <React.Fragment>
-                    <p className='i fw7 pa0 ma0 mb2'>We recommend the following {moviesList.length} movies.</p>
+                    <p className='i fw7 pa0 ma0 mb2'>Our top {moviesList.length} recommended movies.</p>
                     <button
                       className='ml1 pointer f5 no-underline br-pill ph4 pv2 white bg-black'
                       onClick={onClickStartAgain}
