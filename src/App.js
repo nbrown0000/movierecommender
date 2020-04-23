@@ -32,6 +32,10 @@ class App extends React.Component {
     this.setState({ input: event.target.value })
   }
 
+  onInputPressEnter = (event) => {
+    if(event.keyCode === 13) { this.onClickSearch(); }
+  }
+
   onClickSearch = () => {
     if(this.state.input === '') return alert("Seach must include a name");
     this.setState({ moviesList: [], selectedMovie: '', getRecommendedMovies: [] });
@@ -101,6 +105,7 @@ class App extends React.Component {
               <SearchBox
                 onClickSearch={this.onClickSearch}
                 onInputChange={this.onInputChange}
+                onInputPressEnter={this.onInputPressEnter}
               />
               <CardContainer
                 moviesList={sortedMoviesList}
