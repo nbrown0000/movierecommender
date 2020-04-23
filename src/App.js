@@ -4,7 +4,6 @@ import CardContainer from './components/CardContainer/CardContainer';
 import SelectedCardPanel from './components/SelectedCardPanel/SelectedCardPanel';
 import './App.css';
 import 'tachyons';
-import apiConfig from './apiKeys';
 
 
 class App extends React.Component {
@@ -23,12 +22,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    /* Fetch genre list from TMDB API.   The object returned contains
-     * an object genres that contains an array of objects { id, genre }  */
-    const apiKey = apiConfig.TMDB_API_KEY;
-    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`)
+    /* Fetch list of genres */
+    fetch(process.env.REACT_APP_API_URL+'/getGenres')
     .then(response => response.json())
-    .then(data => this.setState({ genreList: data.genres }));
+    .then(data => this.setState({ genreList: data.genres }))
   }
 
   onInputChange = (event) => {
