@@ -5,9 +5,17 @@ const Card = ({ movie, setSelectedMovie, selectedMovie }) => {
   
   let style = {};
   if(selectedMovie.id === movie.id) {
-    style = { border: '3px solid #333333' }
+    style = {
+      border: '3px solid #333333',
+      width: '150px',
+      height: '225px'
+    }
   } else {
-    style = { border: '3px solid white' }
+    style = {
+      border: '3px solid white',
+      width: '150px',
+      height: '225px'
+    }
   }
 
   return (
