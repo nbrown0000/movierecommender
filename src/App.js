@@ -54,31 +54,16 @@ class App extends React.Component {
   }
 
   getRecommendedMovies = () => {
-    /* Algorithm for finding similar movies */
-    const apiKey = apiConfig.TMDB_API_KEY;
-    const genresToSearch = this.state.selectedMovie.genre_ids
-    let fetchString = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=`;
-    genresToSearch.forEach(item => { fetchString=fetchString+item+',' });
-    fetchString=fetchString.slice(0, -1)
-    fetch(fetchString)
+    /* call Movie Recommender API */
+    fetch(`${process.env.REACT_APP_API_URL}/searchByGenres`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 'genre_ids': this.state.selectedMovie.genre_ids })
+    })
     .then(response => response.json())
-    .then(data => {
-      this.setState(prevState => ({
-        recommendedMovies: prevState.recommendedMovies.concat(data.results)
-      }))
-      if (data.total_pages > 1) {
-        for (let i=2; i<=data.total_pages; i++) {
-          fetch(`${fetchString}&page=${i}`)
-          .then(response => response.json())
-          .then(data => {
-            this.setState(prevState => ({
-              recommendedMovies: prevState.recommendedMovies.concat(data.results)
-            }))
-          })
-        }
-      }
-      this.setState({ route: 'result' })  
-      })
+    .then(data => this.setState({ recommendedMovies: data}));
+
+    this.setState({ route: 'result' })  
   }
 
   onClickStartAgain = () => {
