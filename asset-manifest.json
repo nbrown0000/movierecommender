@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/movierecommender/static/css/main.f06c5f25.chunk.css",
+    "main.js": "/movierecommender/static/js/main.a91d0f6d.chunk.js",
+    "main.js.map": "/movierecommender/static/js/main.a91d0f6d.chunk.js.map",
+    "runtime-main.js": "/movierecommender/static/js/runtime-main.f7be4eef.js",
+    "runtime-main.js.map": "/movierecommender/static/js/runtime-main.f7be4eef.js.map",
+    "static/css/2.66b7f74f.chunk.css": "/movierecommender/static/css/2.66b7f74f.chunk.css",
+    "static/js/2.5edc6743.chunk.js": "/movierecommender/static/js/2.5edc6743.chunk.js",
+    "static/js/2.5edc6743.chunk.js.map": "/movierecommender/static/js/2.5edc6743.chunk.js.map",
+    "index.html": "/movierecommender/index.html",
+    "precache-manifest.c57191e5e60a29c2b5e617a4b2cd2e88.js": "/movierecommender/precache-manifest.c57191e5e60a29c2b5e617a4b2cd2e88.js",
+    "service-worker.js": "/movierecommender/service-worker.js",
+    "static/css/2.66b7f74f.chunk.css.map": "/movierecommender/static/css/2.66b7f74f.chunk.css.map",
+    "static/css/main.f06c5f25.chunk.css.map": "/movierecommender/static/css/main.f06c5f25.chunk.css.map",
+    "static/js/2.5edc6743.chunk.js.LICENSE.txt": "/movierecommender/static/js/2.5edc6743.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f7be4eef.js",
+    "static/css/2.66b7f74f.chunk.css",
+    "static/js/2.5edc6743.chunk.js",
+    "static/css/main.f06c5f25.chunk.css",
+    "static/js/main.a91d0f6d.chunk.js"
+  ]
+}
