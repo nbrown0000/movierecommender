@@ -4,6 +4,7 @@ import CardContainer from './components/CardContainer/CardContainer';
 import SelectedCardPanel from './components/SelectedCardPanel/SelectedCardPanel';
 import './App.css';
 import 'tachyons';
+const REACT_APP_API_URL = 'https://simple-movie-recommender.herokuapp.com';
 
 
 class App extends React.Component {
@@ -23,7 +24,7 @@ class App extends React.Component {
 
   componentDidMount() {
     /* Fetch list of genres */
-    fetch(process.env.REACT_APP_API_URL+'/getGenres')
+    fetch(REACT_APP_API_URL+'/getGenres')
     .then(response => response.json())
     .then(data => this.setState({ genreList: data.genres }))
   }
@@ -41,7 +42,7 @@ class App extends React.Component {
     this.setState({ moviesList: [], selectedMovie: '', getRecommendedMovies: [] });
 
     /* call Movie Recommender API */
-    fetch(`${process.env.REACT_APP_API_URL}/searchByTitle`, {
+    fetch(`${REACT_APP_API_URL}/searchByTitle`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 'title': this.state.input })
@@ -56,7 +57,7 @@ class App extends React.Component {
 
   getRecommendedMovies = () => {
     /* call Movie Recommender API */
-    fetch(`${process.env.REACT_APP_API_URL}/searchByGenres`, {
+    fetch(`${REACT_APP_API_URL}/searchByGenres`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 'genre_ids': this.state.selectedMovie.genre_ids })
