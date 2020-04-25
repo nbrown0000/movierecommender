@@ -6,6 +6,10 @@ A simple web app to recommend movies you might like.
 I wanted to build something fun that would teach me back-end technologies. Besides, movies are fun!
 
 
+## Demo
+A live version is available on https://nbrown0000.github.io/movierecommender/
+
+
 ## Built With
 - [ReactJS](https://reactjs.org/)
 - [Tachyons](https://tachyons.io/)
